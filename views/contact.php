@@ -1,8 +1,10 @@
 <div class="container">
     <h1> Contact US</h1>
-    <form class="my-4">
+    <form class="my-4" method="post">
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="action" value="submit">
+      <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="section" value="contact">
       <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
       <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
     </div>

@@ -14,6 +14,7 @@ class Router
     public Request $request;
     public Response $response;
 
+
     public function __construct( Request $request, Response $response ) {
         $this->request= $request;
         $this->response= $response;
@@ -32,6 +33,17 @@ class Router
     public function get(string $path, $callback)
     { 
         $this->routes['get'][$path] = $callback;
+    }
+
+    /**
+     * Post methods.
+     *
+     * @param string $path 
+     * @return void
+     **/
+    public function post( string $path, $callback )
+    {
+       $this->routes['post'][$path] = $callback;
     }
 
     /**
@@ -63,10 +75,10 @@ class Router
     /**
      * 
      */
-    public function renderView( string $view)
+    public function renderView( string $view, $params=[] )
     {
         $layoutContent = $this->layoutContent();
-        $viewContent = $this->renderOnlyView($view);
+        $viewContent = $this->renderOnlyView( $view, $params );
         return str_replace("{{content}}", $viewContent, $layoutContent);
     }
 
@@ -83,12 +95,15 @@ class Router
     /**
      * Render Only view.
      */
-    protected function renderOnlyView($view)
+    protected function renderOnlyView($view, $params)
     {
+        foreach ($params as $key => $value ) {
+            $$key = $value;
+        }
         ob_start();
         include_once Application::$ROOT_DIR . "/views/$view.php";
         return ob_get_clean();
     }
 }
-?>
 
+?>
